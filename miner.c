@@ -80,42 +80,42 @@ void open_cell(int x, int y)
         map[x * size_y + y] = '*';
         return;
     }
-    int mines_count = 0;
+    int count = 0;
     if (x + 1 < size_x && mines[(x + 1) * size_y + y])
     {
-        mines_count++;
+        count++;
     }
     if (x + 1 < size_x && y - 1 >= 0 && mines[(x + 1) * size_y + (y - 1)])
     {
-        mines_count++;
+        count++;
     }
     if (x + 1 < size_x && y + 1 < size_y && mines[(x + 1) * size_y + (y + 1)])
     {
-        mines_count++;
+        count++;
     }
 
     if (x - 1 >= 0 && mines[(x - 1) * size_y + y])
     {
-        mines_count++;
+        count++;
     }
     if (x - 1 >= 0 && y - 1 >= 0 && mines[(x - 1) * size_y + (y - 1)])
     {
-        mines_count++;
+        count++;
     }
     if (x - 1 >= 0 && y + 1 < size_y && mines[(x - 1) * size_y + (y + 1)])
     {
-        mines_count++;
+        count++;
     }
 
     if (y - 1 >= 0 && mines[x * size_y + (y - 1)])
     {
-        mines_count++;
+        count++;
     }
     if (y + 1 < size_y && mines[x * size_y + (y + 1)])
     {
-        mines_count++;
+        count++;
     }
-    map[x * size_y + y] = '0' + mines_count;
+    map[x * size_y + y] = '0' + count;
 }
 
 void print_map()
@@ -136,7 +136,7 @@ int has_empty_cells()
     {
         for (int j = 0; j < size_x; j++)
         {
-            if (map[j * size_y + i] == '?')
+            if (map[j * size_y + i] == '?' && mines[j * size_y + i] != 1)
             {
                 return 1;
             }
@@ -167,6 +167,7 @@ void init_map()
         for (int j = 0; j < size_x; j++)
         {
             map[j * size_y + i] = '?';
+            mines[j * size_y + i] = 0;
         }
     }
 }
